@@ -593,9 +593,9 @@ func (api *ConsensusAPI) heartbeat() {
 				if time.Since(lastTransitionUpdate) > beaconUpdateExchangeTimeout {
 					if time.Since(offlineLogged) > beaconUpdateWarnFrequency {
 						if lastTransitionUpdate.IsZero() {
-							log.Warn("Post-merge network, but no beacon client seen. Please launch one to follow the chain!")
+							log.Debug("Post-merge network, but no beacon client seen. Please launch one to follow the chain!")
 						} else {
-							log.Warn("Previously seen beacon client is offline. Please ensure it is operational to follow the chain!")
+							log.Debug("Previously seen beacon client is offline. Please ensure it is operational to follow the chain!")
 						}
 						offlineLogged = time.Now()
 					}
@@ -603,9 +603,9 @@ func (api *ConsensusAPI) heartbeat() {
 				}
 				if time.Since(offlineLogged) > beaconUpdateWarnFrequency {
 					if lastForkchoiceUpdate.IsZero() && lastNewPayloadUpdate.IsZero() {
-						log.Warn("Beacon client online, but never received consensus updates. Please ensure your beacon client is operational to follow the chain!")
+						log.Debug("Beacon client online, but never received consensus updates. Please ensure your beacon client is operational to follow the chain!")
 					} else {
-						log.Warn("Beacon client online, but no consensus updates received in a while. Please fix your beacon client to follow the chain!")
+						log.Debug("Beacon client online, but no consensus updates received in a while. Please fix your beacon client to follow the chain!")
 					}
 					offlineLogged = time.Now()
 				}
@@ -662,9 +662,9 @@ func (api *ConsensusAPI) heartbeat() {
 						}
 					}
 					if eta == 0 {
-						log.Warn(message)
+						log.Debug(message)
 					} else {
-						log.Warn(message, "eta", common.PrettyAge(time.Now().Add(-eta))) // weird hack, but duration formatted doesn't handle days
+						log.Debug(message, "eta", common.PrettyAge(time.Now().Add(-eta))) // weird hack, but duration formatted doesn't handle days
 					}
 					offlineLogged = time.Now()
 				}
